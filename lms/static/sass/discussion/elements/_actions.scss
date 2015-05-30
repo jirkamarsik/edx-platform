@@ -159,6 +159,23 @@
       }
     }
 
+    &.action-translate {
+
+      &:hover, &:focus {
+        border-color: $purple-d2;
+
+        .action-icon {
+          background-color: $purple-d1;
+          border: 1px solid $purple-d2;
+          color: $white;
+        }
+
+        .action-label {
+          color: $purple-d2;
+        }
+      }
+    }
+
     &.action-vote {
 
       .action-label {

@@ -133,6 +133,10 @@ $green-u1: desaturate($green,15%);
 $green-u2: desaturate($green,30%);
 $green-u3: desaturate($green,45%);
 
+$purple: rgb(156, 39, 176); // #9C27B0;
+$purple-d1: shade($purple,20%);
+$purple-d2: shade($purple,40%);
+
 // TODO: both blue and yellow variables differ from CMS rgb value, need to confirm change to CMS variable is ok in current platform uses before switching.
 $blue: rgb(29,157,217);
 $yellow: rgb(255, 252, 221);

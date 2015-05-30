@@ -70,6 +70,7 @@ if Backbone?
       _.reduce(
         [
           [".action-follow", "toggleFollow"],
+          [".action-translate", "translate"],
           [".action-answer", "toggleEndorse"],
           [".action-endorse", "toggleEndorse"],
           [".action-vote", "toggleVote"],
@@ -189,6 +190,52 @@ if Backbone?
         {url: url, type: "POST", $elem: $(event.currentTarget)},
         msg
       )
+
+
+    translate: (event) =>
+      event.preventDefault()
+
+      detectLang = (text, callback) ->
+        url = 'https://translate.yandex.net/api/v1.5/tr.json/detect?key=trnsl.1.1.20150530T002935Z.a4bd07854a22a33e.51459178a81cffcd111d05061fa01554dabc3b30&text=' + text
+        request = new XMLHttpRequest
+
+        request.onreadystatechange = ->
+          if request.readyState == 4 and request.status == 200
+            resp = JSON.parse(request.responseText)
+            if resp.code == 200
+              callback resp.lang
+
+        request.open 'GET', url, true
+        request.send()
+
+      translateText = (from, to, text, callback) ->
+        url = 'https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20150530T002935Z.a4bd07854a22a33e.51459178a81cffcd111d05061fa01554dabc3b30&lang=' + from + '-' + to + '&text=' + text
+        request = new XMLHttpRequest
+
+        request.onreadystatechange = ->
+          if request.readyState == 4 and request.status == 200
+            resp = JSON.parse(request.responseText)
+            if resp.code == 200
+              callback resp.text
+
+        request.open 'GET', url, true
+        request.send()
+
+
+      enclosingDiv = $(event.currentTarget)
+                        .closest('div.discussion-post, div.discussion-response')
+      postDiv = enclosingDiv.find('div.post-body, div.response-body')
+
+      if enclosingDiv.find('div.translation').length == 0
+        postDiv.after('<div class="translation"></div>')
+
+      locale = navigator.language.split('-')[0]
+
+      detectLang postDiv.text(), (lang) ->
+        translateText lang, locale, postDiv.text(), (text) ->
+          enclosingDiv.find('div.translation')[0].innerHTML = "<p>" + text + "</p>"
+
+
 
     toggleEndorse: (event) =>
       event.preventDefault()

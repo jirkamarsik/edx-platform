@@ -12279,6 +12279,10 @@ msgid "Follow"
 msgstr "Suivre"
 
 #: lms/templates/discussion/_underscore_templates.html
+msgid "Translate"
+msgstr "Traduire"
+
+#: lms/templates/discussion/_underscore_templates.html
 msgid "Unfollow"
 msgstr "Ne plus suivre"
 

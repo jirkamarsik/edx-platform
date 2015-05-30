@@ -47,7 +47,7 @@
                 {
                     contentId: cid,
                     contentType: 'post',
-                    primaryActions: ['vote', 'follow'],
+                    primaryActions: ['vote', 'follow', 'translate'],
                     secondaryActions: ['pin', 'edit', 'delete', 'report', 'close']
                 }
             )
