@@ -71,6 +71,7 @@ if Backbone?
         [
           [".action-follow", "toggleFollow"],
           [".action-translate", "translate"],
+          [".action-translate-small", "translate"],
           [".action-answer", "toggleEndorse"],
           [".action-endorse", "toggleEndorse"],
           [".action-vote", "toggleVote"],
@@ -223,17 +224,18 @@ if Backbone?
 
 
       enclosingDiv = $(event.currentTarget)
-                        .closest('div.discussion-post, div.discussion-response')
-      postDiv = enclosingDiv.find('div.post-body, div.response-body')
+                     .closest('div.discussion-post, div.discussion-response, div.comment_unsaved, div[id^=comment_]')
+      postDiv = enclosingDiv.find('div.post-body, div.response-body').first()
+      translationDiv = enclosingDiv.find('div.translation')
 
-      if enclosingDiv.find('div.translation').length == 0
-        postDiv.after('<div class="translation"></div>')
+      if translationDiv.length == 0
+        translationDiv = postDiv.clone().addClass('translation').empty().insertAfter(postDiv)
 
       locale = navigator.language.split('-')[0]
 
       detectLang postDiv.text(), (lang) ->
         translateText lang, locale, postDiv.text(), (text) ->
-          enclosingDiv.find('div.translation')[0].innerHTML = "<p>" + text + "</p>"
+          translationDiv[0].innerHTML = "<p>" + text + "</p>"
 
 
 

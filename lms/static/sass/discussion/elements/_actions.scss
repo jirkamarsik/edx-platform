@@ -162,7 +162,7 @@
     &.action-translate {
 
       &:hover, &:focus {
-        border-color: $purple-d2;
+        border-color: $purple-d1;
 
         .action-icon {
           background-color: $purple-d1;
@@ -299,6 +299,11 @@
 
         // CASE: report action
         &.action-report {
+          color: $pink;
+        }
+
+        // CASE: translate action
+        &.action-translate-small {
           color: $pink;
         }
 
